@@ -1,41 +1,59 @@
 import pandas as pd
 import dash
-from dash import dcc, html, Input, Output, State, dash_table, ALL
+from dash import dcc, html, Input, Output, State, dash_table
 import random
 
-# Load your data
-df = pd.read_csv('/Users/vincentbett/Desktop/Viz/DataViz/extended_test_data.csv')
+# Load Data (use your own CSV file)
+df = pd.read_csv('extended_test_data.csv')  # or your CSV file
 
-# Helper functions
-def calculate_rag_status(sub_df):
+def calculate_rag_details(sub_df):
+    # Determine how many risk indicators are above threshold
     above_threshold_count = (sub_df['Risk Value'] > sub_df['Threshold']).sum()
     total = len(sub_df)
     ratio = above_threshold_count / total if total > 0 else 0
     if ratio > 2/3:
-        return 'Red'
+        rag = 'Red'
     elif ratio > 1/3:
-        return 'Amber'
+        rag = 'Amber'
     else:
-        return 'Green'
+        rag = 'Green'
+    return pd.Series({
+        'RAG': rag,
+        'above_threshold_count': above_threshold_count,
+        'total': total,
+        'ratio': ratio
+    })
 
 def get_aggregated_rag(df, group_cols):
-    grouped = df.groupby(group_cols)
-    rag_df = grouped.apply(calculate_rag_status).reset_index()
-    rag_df.columns = group_cols + ['RAG']
-    return rag_df
-
-state_rag = get_aggregated_rag(df, ['State'])
-county_rag = get_aggregated_rag(df, ['State', 'County'])
-muni_rag = get_aggregated_rag(df, ['State', 'County', 'Municipality'])
-district_rag = get_aggregated_rag(df, ['State', 'County', 'Municipality', 'District'])
+    grouped = df.groupby(group_cols).apply(calculate_rag_details).reset_index()
+    return grouped
 
 def get_rag_color(rag):
     if rag == 'Red':
         return 'red'
     elif rag == 'Amber':
         return 'orange'
+    return 'green'
+
+# Precompute RAG at each level with details
+state_rag = get_aggregated_rag(df, ['State'])
+county_rag = get_aggregated_rag(df, ['State', 'County'])
+muni_rag = get_aggregated_rag(df, ['State', 'County', 'Municipality'])
+district_rag = get_aggregated_rag(df, ['State', 'County', 'Municipality', 'District'])
+
+def rag_explanation(row):
+    # Explain why the data is a certain RAG color (hierarchical ratio logic)
+    at = row['above_threshold_count']
+    tot = row['total']
+    ratio = row['ratio']
+    rag = row['RAG']
+    if rag == 'Red':
+        reason = f"{at} out of {tot} ({ratio:.2f}) are above threshold, > 2/3"
+    elif rag == 'Amber':
+        reason = f"{at} out of {tot} ({ratio:.2f}) are above threshold, > 1/3 but ≤ 2/3"
     else:
-        return 'green'
+        reason = f"{at} out of {tot} ({ratio:.2f}) are above threshold, ≤ 1/3"
+    return f"RAG: {rag}. {reason}."
 
 def create_tiles(dataframe, level_col):
     tiles = []
@@ -43,6 +61,7 @@ def create_tiles(dataframe, level_col):
         entity = row[level_col]
         rag = row['RAG']
         color = get_rag_color(rag)
+        tooltip = rag_explanation(row)
         tiles.append(
             html.Button(
                 entity,
@@ -52,6 +71,7 @@ def create_tiles(dataframe, level_col):
                     'value': entity
                 },
                 n_clicks=0,
+                title=tooltip,  # Hover text
                 style={
                     'backgroundColor': color,
                     'color': 'white',
@@ -68,25 +88,28 @@ def create_tiles(dataframe, level_col):
         )
     return tiles
 
-# Create global style_data_conditional for full view
-# Color coding each row based on Risk Value > Threshold
-def create_style_data_conditional(df):
-    styles = []
-    for i, row in df.iterrows():
-        bg_color = 'green'
-        color = 'white'
-        if row['Risk Value'] > row['Threshold']:
-            bg_color = 'red'
-        styles.append({
-            'if': {
-                'filter_query': f'{{Key Risk Indicator}} = "{row["Key Risk Indicator"]}" && {{State}} = "{row["State"]}" && {{County}} = "{row["County"]}" && {{Municipality}} = "{row["Municipality"]}" && {{District}} = "{row["District"]}"'
-            },
-            'backgroundColor': bg_color,
-            'color': color
-        })
-    return styles
+def cell_color(row):
+    # Amber: abs(Risk Value - Threshold) <= 5 and not above threshold
+    diff = abs(row['Risk Value'] - row['Threshold'])
+    if row['Risk Value'] > row['Threshold']:
+        return 'red'
+    elif diff <= 5:
+        return 'orange'
+    else:
+        return 'green'
+
+def color_to_code(color):
+    # Red = 2, Amber = 1, Green = 0
+    # So sorting descending puts Red first, then Amber, then Green
+    if color == 'red':
+        return 2
+    elif color == 'orange':
+        return 1
+    else:
+        return 0
 
 app = dash.Dash(__name__)
+app.title = "Risk Dashboard"
 
 app.layout = html.Div([
     html.H1("Risk Dashboard"),
@@ -94,14 +117,16 @@ app.layout = html.Div([
     dcc.Store(id='selected-county'),
     dcc.Store(id='selected-municipality'),
     dcc.Store(id='selected-district'),
-    dcc.Store(id='view-mode', data='hierarchy'),  # 'hierarchy' or 'all'
+    dcc.Store(id='view-mode', data='hierarchy'),  # 'hierarchy' or 'all_indicators'
+    dcc.Store(id='sort-by-color-toggle', data=False),  # Track whether we are sorting by color
 
     html.Div([
         html.Button("Back to States", id='back-to-states', n_clicks=0, style={'display': 'none'}),
         html.Button("Back to Counties", id='back-to-counties', n_clicks=0, style={'display': 'none'}),
         html.Button("Back to Municipalities", id='back-to-municipalities', n_clicks=0, style={'display': 'none'}),
-        html.Button("Show All Indicators", id='show-all', n_clicks=0, style={'margin-left': '20px'}),
-        html.Button("Back to Hierarchy", id='back-to-hierarchy', n_clicks=0, style={'display': 'none', 'margin-left': '20px'})
+        html.Button("Show All Indicators", id='show-all-indicators', n_clicks=0),
+        html.Button("Back to Hierarchy", id='back-to-hierarchy', n_clicks=0, style={'display':'none', 'margin-left':'10px'}),
+        html.Button("Sort by Color", id='sort-by-color', n_clicks=0, style={'margin-left':'10px'})
     ], style={'margin-bottom': '20px'}),
 
     html.Div(id='content-container', style={
@@ -122,11 +147,14 @@ app.layout = html.Div([
     Output('back-to-counties', 'style'),
     Output('back-to-municipalities', 'style'),
     Output('view-mode', 'data'),
-    Input({'type': 'tile', 'level': ALL, 'value': ALL}, 'n_clicks'),
+    Input({'type': 'tile', 'level': 'State', 'value': dash.ALL}, 'n_clicks'),
+    Input({'type': 'tile', 'level': 'County', 'value': dash.ALL}, 'n_clicks'),
+    Input({'type': 'tile', 'level': 'Municipality', 'value': dash.ALL}, 'n_clicks'),
+    Input({'type': 'tile', 'level': 'District', 'value': dash.ALL}, 'n_clicks'),
     Input('back-to-states', 'n_clicks'),
     Input('back-to-counties', 'n_clicks'),
     Input('back-to-municipalities', 'n_clicks'),
-    Input('show-all', 'n_clicks'),
+    Input('show-all-indicators', 'n_clicks'),
     Input('back-to-hierarchy', 'n_clicks'),
     State('selected-state', 'data'),
     State('selected-county', 'data'),
@@ -134,41 +162,60 @@ app.layout = html.Div([
     State('view-mode', 'data'),
     prevent_initial_call=True
 )
-def navigate(tile_clicks, back_states, back_counties, back_munis, show_all, back_hierarchy, sel_state, sel_county, sel_muni, view_mode):
+def navigate(
+    state_tile_clicks, county_tile_clicks, muni_tile_clicks, district_tile_clicks,
+    back_states, back_counties, back_munis, show_all, back_hierarchy,
+    sel_state, sel_county, sel_muni, view_mode
+):
     ctx = dash.callback_context
-    triggered_id = ctx.triggered[0]['prop_id'].split('.')[0]
 
-    # Handle show all indicators
-    if triggered_id == 'show-all':
-        # Switch to all indicators mode
-        return None, None, None, None, {'display': 'none'}, {'display': 'none'}, {'display': 'none'}, 'all'
-    elif triggered_id == 'back-to-hierarchy':
-        # Switch back to hierarchy mode
+    # If "Show All Indicators" is clicked
+    if ctx.triggered and 'show-all-indicators' in ctx.triggered[0]['prop_id']:
+        return sel_state, sel_county, sel_muni, None, {'display':'none'}, {'display':'none'}, {'display':'none'}, 'all_indicators'
+
+    # If "Back to Hierarchy" is clicked
+    if ctx.triggered and 'back-to-hierarchy' in ctx.triggered[0]['prop_id']:
+        return None, None, None, None, {'display':'none'}, {'display':'none'}, {'display':'none'}, 'hierarchy'
+
+    if ctx.triggered and 'back-to-states' in ctx.triggered[0]['prop_id']:
         return None, None, None, None, {'display': 'none'}, {'display': 'none'}, {'display': 'none'}, 'hierarchy'
 
-    if triggered_id == 'back-to-states':
-        return None, None, None, None, {'display': 'none'}, {'display': 'none'}, {'display': 'none'}, 'hierarchy'
-    elif triggered_id == 'back-to-counties':
+    if ctx.triggered and 'back-to-counties' in ctx.triggered[0]['prop_id']:
         return sel_state, None, None, None, {'display': 'inline'}, {'display': 'none'}, {'display': 'none'}, 'hierarchy'
-    elif triggered_id == 'back-to-municipalities':
+
+    if ctx.triggered and 'back-to-municipalities' in ctx.triggered[0]['prop_id']:
         return sel_state, sel_county, None, None, {'display': 'inline'}, {'display': 'inline'}, {'display': 'none'}, 'hierarchy'
 
-    if 'tile' in triggered_id and view_mode == 'hierarchy':
-        for i, v in enumerate(ctx.inputs_list[0]):
-            if v['id']['type'] == 'tile' and v['value'] and tile_clicks[i] and tile_clicks[i] > 0:
-                level = v['id']['level']
-                value = v['id']['value']
-                if sel_state is None:
-                    return value, None, None, None, {'display': 'inline'}, {'display': 'none'}, {'display': 'none'}, 'hierarchy'
-                elif sel_state and sel_county is None:
-                    return sel_state, value, None, None, {'display': 'inline'}, {'display': 'inline'}, {'display': 'none'}, 'hierarchy'
-                elif sel_state and sel_county and sel_muni is None:
-                    return sel_state, sel_county, value, None, {'display': 'inline'}, {'display': 'inline'}, {'display': 'inline'}, 'hierarchy'
-                elif sel_state and sel_county and sel_muni:
-                    return sel_state, sel_county, sel_muni, value, {'display': 'inline'}, {'display': 'inline'}, {'display': 'inline'}, 'hierarchy'
+    # Check tile clicks
+    # State-level tiles
+    if state_tile_clicks is not None and any(c > 0 for c in state_tile_clicks):
+        idx = [i for i, val in enumerate(state_tile_clicks) if val and val > 0][0]
+        state_val = state_rag.iloc[idx]['State']
+        return state_val, None, None, None, {'display': 'inline'}, {'display': 'none'}, {'display': 'none'}, 'hierarchy'
 
-    # Default return if nothing matched
-    # Keep current selection and mode
+    # County-level tiles
+    if county_tile_clicks is not None and any(c > 0 for c in county_tile_clicks):
+        idx = [i for i, val in enumerate(county_tile_clicks) if val and val > 0][0]
+        county_candidates = county_rag[county_rag['State'] == sel_state].reset_index(drop=True)
+        county_val = county_candidates.iloc[idx]['County']
+        return sel_state, county_val, None, None, {'display': 'inline'}, {'display': 'inline'}, {'display': 'none'}, 'hierarchy'
+
+    # Municipality-level tiles
+    if muni_tile_clicks is not None and any(c > 0 for c in muni_tile_clicks):
+        idx = [i for i, val in enumerate(muni_tile_clicks) if val and val > 0][0]
+        muni_candidates = muni_rag[(muni_rag['State'] == sel_state) & (muni_rag['County'] == sel_county)].reset_index(drop=True)
+        muni_val = muni_candidates.iloc[idx]['Municipality']
+        return sel_state, sel_county, muni_val, None, {'display': 'inline'}, {'display': 'inline'}, {'display': 'inline'}, 'hierarchy'
+
+    # District-level tiles
+    if district_tile_clicks is not None and any(c > 0 for c in district_tile_clicks):
+        idx = [i for i, val in enumerate(district_tile_clicks) if val and val > 0][0]
+        dist_candidates = district_rag[(district_rag['State'] == sel_state) &
+                                       (district_rag['County'] == sel_county) &
+                                       (district_rag['Municipality'] == sel_muni)].reset_index(drop=True)
+        dist_val = dist_candidates.iloc[idx]['District']
+        return sel_state, sel_county, sel_muni, dist_val, {'display': 'inline'}, {'display': 'inline'}, {'display': 'inline'}, 'hierarchy'
+
     return sel_state, sel_county, sel_muni, None, {'display': 'none'}, {'display': 'none'}, {'display': 'none'}, view_mode
 
 @app.callback(
@@ -179,72 +226,119 @@ def navigate(tile_clicks, back_states, back_counties, back_munis, show_all, back
     Input('selected-county', 'data'),
     Input('selected-municipality', 'data'),
     Input('selected-district', 'data'),
-    Input('view-mode', 'data')
+    Input('view-mode', 'data'),
+    State('sort-by-color-toggle', 'data')
 )
-def update_view(sel_state, sel_county, sel_muni, sel_district, view_mode):
-    if view_mode == 'all':
-        # Show all indicators in a table
-        style_data_conditional = create_style_data_conditional(df)
-        columns = [{'name': c, 'id': c} for c in df.columns]
+def update_view(sel_state, sel_county, sel_muni, sel_district, view_mode, sort_toggle):
+    if view_mode == 'all_indicators':
+        # Show all indicators in a paginated table with new Amber logic
+        final_df = df.copy()
+        # Compute color codes for sorting
+        final_df['ColorBG'] = final_df.apply(cell_color, axis=1)
+        final_df['ColorCode'] = final_df['ColorBG'].apply(color_to_code)
+
+        style_data_conditional = []
+        for i, row in final_df.iterrows():
+            bg_color = row['ColorBG']
+            style_data_conditional.append({
+                'if': {
+                    'filter_query': (
+                        f'{{Key Risk Indicator}} = "{row["Key Risk Indicator"]}" && '
+                        f'{{State}} = "{row["State"]}" && '
+                        f'{{County}} = "{row["County"]}" && '
+                        f'{{Municipality}} = "{row["Municipality"]}" && '
+                        f'{{District}} = "{row["District"]}"'
+                    )
+                },
+                'backgroundColor': bg_color,
+                'color': 'white'
+            })
+
+        columns = [{'name': c, 'id': c} for c in final_df.columns if c not in ['ColorBG', 'ColorCode']]
+        sort_by = []
+        if sort_toggle:
+            # If we are sorting by color, sort descending by ColorCode
+            sort_by = [{'column_id': 'ColorCode', 'direction': 'desc'}]
         table = dash_table.DataTable(
             columns=columns,
-            data=df.to_dict('records'),
+            data=final_df.to_dict('records'),
             style_data_conditional=style_data_conditional,
-            page_size=20
+            page_size=20,
+            sort_action='native',
+            sort_by=sort_by,
+            hidden_columns=['ColorBG', 'ColorCode']
         )
         return [], table, {'display': 'inline'}
 
-    # Hierarchy mode
+    # Hierarchical view
     if sel_state is None:
         # Show states
         plot_df = state_rag.copy()
         tiles = create_tiles(plot_df, 'State')
-        return tiles, None, {'display': 'none'}
+        return tiles, None, {'display':'none'}
     elif sel_state is not None and sel_county is None:
-        # Show counties in that state
+        # Show counties
         plot_df = county_rag[county_rag['State'] == sel_state].copy()
         tiles = create_tiles(plot_df, 'County')
-        return tiles, None, {'display': 'none'}
+        return tiles, None, {'display':'none'}
     elif sel_state is not None and sel_county is not None and sel_muni is None:
         # Show municipalities
         plot_df = muni_rag[(muni_rag['State'] == sel_state) & (muni_rag['County'] == sel_county)].copy()
         tiles = create_tiles(plot_df, 'Municipality')
-        return tiles, None, {'display': 'none'}
+        return tiles, None, {'display':'none'}
     elif sel_state is not None and sel_county is not None and sel_muni is not None and sel_district is None:
         # Show districts
         plot_df = district_rag[(district_rag['State'] == sel_state) &
                                (district_rag['County'] == sel_county) &
                                (district_rag['Municipality'] == sel_muni)].copy()
         tiles = create_tiles(plot_df, 'District')
-        return tiles, None, {'display': 'none'}
+        return tiles, None, {'display':'none'}
     else:
-        # Final level: color-coded table for selected district
+        # Final level: Show table for that district with new Amber logic
         final_df = df[(df['State'] == sel_state) &
                       (df['County'] == sel_county) &
                       (df['Municipality'] == sel_muni) &
                       (df['District'] == sel_district)].copy()
+        final_df['ColorBG'] = final_df.apply(cell_color, axis=1)
+        final_df['ColorCode'] = final_df['ColorBG'].apply(color_to_code)
 
         style_data_conditional = []
         for i, row in final_df.iterrows():
-            bg_color = 'green'
-            color = 'white'
-            if row['Risk Value'] > row['Threshold']:
-                bg_color = 'red'
+            bg_color = row['ColorBG']
             style_data_conditional.append({
                 'if': {
                     'filter_query': f'{{Key Risk Indicator}} = "{row["Key Risk Indicator"]}"'
                 },
                 'backgroundColor': bg_color,
-                'color': color
+                'color': 'white'
             })
 
-        columns = [{'name': c, 'id': c} for c in final_df.columns]
+        columns = [{'name': c, 'id': c} for c in final_df.columns if c not in ['ColorBG', 'ColorCode']]
+        sort_by = []
+        if sort_toggle:
+            sort_by = [{'column_id': 'ColorCode', 'direction': 'desc'}]
+
         table = dash_table.DataTable(
             columns=columns,
             data=final_df.to_dict('records'),
-            style_data_conditional=style_data_conditional
+            style_data_conditional=style_data_conditional,
+            page_size=20,
+            sort_action='native',
+            sort_by=sort_by,
+            hidden_columns=['ColorBG', 'ColorCode']
         )
-        return [], table, {'display': 'none'}
+        return [], table, {'display':'none'}
+
+@app.callback(
+    Output('sort-by-color-toggle', 'data'),
+    Input('sort-by-color', 'n_clicks'),
+    State('sort-by-color-toggle', 'data')
+)
+def toggle_sort_by_color(n_clicks, current):
+    # Every time the button is clicked, toggle the boolean
+    if n_clicks:
+        return not current
+    return current
 
 if __name__ == '__main__':
     app.run_server(debug=True)
