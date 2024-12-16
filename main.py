@@ -1,9 +1,7 @@
 import pandas as pd
 import dash
 from dash import dcc, html, Input, Output, State, dash_table
-import random
 
-# Load Data (use your own CSV file)
 df = pd.read_csv('extended_test_data.csv')  # or your CSV file
 
 def calculate_rag_details(sub_df):
@@ -28,12 +26,33 @@ def get_aggregated_rag(df, group_cols):
     grouped = df.groupby(group_cols).apply(calculate_rag_details).reset_index()
     return grouped
 
-def get_rag_color(rag):
-    if rag == 'Red':
+def cell_color_classification(value, threshold):
+    diff = abs(value - threshold)
+    if value > threshold:
+        return 'High'
+    elif diff <= 5:
+        return 'Medium'
+    else:
+        return 'Low'
+
+def cell_color(row):
+    # Color for the cells
+    diff = abs(row['Risk Value'] - row['Threshold'])
+    if row['Risk Value'] > row['Threshold']:
         return 'red'
-    elif rag == 'Amber':
+    elif diff <= 5:
         return 'orange'
-    return 'green'
+    else:
+        return 'green'
+
+def color_to_code(color):
+    # For sorting by color
+    if color == 'red':
+        return 2
+    elif color == 'orange':
+        return 1
+    else:
+        return 0
 
 # Precompute RAG at each level with details
 state_rag = get_aggregated_rag(df, ['State'])
@@ -41,37 +60,54 @@ county_rag = get_aggregated_rag(df, ['State', 'County'])
 muni_rag = get_aggregated_rag(df, ['State', 'County', 'Municipality'])
 district_rag = get_aggregated_rag(df, ['State', 'County', 'Municipality', 'District'])
 
-def rag_explanation(row):
-    # Explain why the data is a certain RAG color (hierarchical ratio logic)
-    at = row['above_threshold_count']
-    tot = row['total']
-    ratio = row['ratio']
-    rag = row['RAG']
-    if rag == 'Red':
-        reason = f"{at} out of {tot} Key Risk Indicators ({ratio:.2f}) are above threshold: > 2/3"
-    elif rag == 'Amber':
-        reason = f"{at} out of {tot} Key Risk Indicators ({ratio:.2f}) are above threshold: > 1/3 but ≤ 2/3"
+def get_tile_tooltip(level_col, row, df):
+    # Determine which subset of df corresponds to this tile
+    # Based on the level_col, we know which columns to filter by
+    if level_col == 'State':
+        filtered = df[df['State'] == row['State']]
+    elif level_col == 'County':
+        filtered = df[(df['State'] == row['State']) & (df['County'] == row['County'])]
+    elif level_col == 'Municipality':
+        filtered = df[(df['State'] == row['State']) &
+                      (df['County'] == row['County']) &
+                      (df['Municipality'] == row['Municipality'])]
+    elif level_col == 'District':
+        filtered = df[(df['State'] == row['State']) &
+                      (df['County'] == row['County']) &
+                      (df['Municipality'] == row['Municipality']) &
+                      (df['District'] == row['District'])]
     else:
-        reason = f"{at} out of {tot} Key Risk Indicators ({ratio:.2f}) are above threshold: ≤ 1/3"
-    return f"RAG: {rag}. {reason}."
+        filtered = df.copy()
+
+    # Group by Key Risk Indicator and compute mean values
+    agg = filtered.groupby('Key Risk Indicator').agg({'Risk Value': 'mean', 'Threshold': 'mean'}).reset_index()
+
+    # Classify each indicator
+    lines = []
+    for _, r in agg.iterrows():
+        classification = cell_color_classification(r['Risk Value'], r['Threshold'])
+        lines.append(f"{r['Key Risk Indicator']}: {classification}")
+
+    # Join lines into a multiline tooltip
+    return "\n".join(lines)
 
 def create_tiles(dataframe, level_col):
     tiles = []
     for _, row in dataframe.iterrows():
-        entity = row[level_col]
+        tooltip = get_tile_tooltip(level_col, row, df)
         rag = row['RAG']
-        color = get_rag_color(rag)
-        tooltip = rag_explanation(row)
+        # Convert rag to a color
+        color = 'red' if rag == 'Red' else 'orange' if rag == 'Amber' else 'green'
         tiles.append(
             html.Button(
-                entity,
+                row[level_col],
                 id={
                     'type': 'tile',
                     'level': level_col,
-                    'value': entity
+                    'value': row[level_col]
                 },
                 n_clicks=0,
-                title=tooltip,  # Hover text
+                title=tooltip,  # show detailed reasons
                 style={
                     'backgroundColor': color,
                     'color': 'white',
@@ -88,24 +124,6 @@ def create_tiles(dataframe, level_col):
         )
     return tiles
 
-def cell_color(row):
-    # Amber: abs(Risk Value - Threshold) <= 5 and not above threshold
-    diff = abs(row['Risk Value'] - row['Threshold'])
-    if row['Risk Value'] > row['Threshold']:
-        return 'red'
-    elif diff <= 5:
-        return 'orange'
-    else:
-        return 'green'
-
-def color_to_code(color):
-    # Red = 2, Amber = 1, Green = 0
-    if color == 'red':
-        return 2
-    elif color == 'orange':
-        return 1
-    else:
-        return 0
 
 app = dash.Dash(__name__)
 app.title = "Risk Dashboard"
@@ -116,8 +134,8 @@ app.layout = html.Div([
     dcc.Store(id='selected-county'),
     dcc.Store(id='selected-municipality'),
     dcc.Store(id='selected-district'),
-    dcc.Store(id='view-mode', data='hierarchy'),  # 'hierarchy' or 'all_indicators'
-    dcc.Store(id='sort-by-color-toggle', data=False),  # Track sorting by color
+    dcc.Store(id='view-mode', data='hierarchy'),
+    dcc.Store(id='sort-by-color-toggle', data=False),
 
     html.Div([
         html.Button("Back to States", id='back-to-states', n_clicks=0, style={'display': 'none'}),
@@ -168,11 +186,9 @@ def navigate(
 ):
     ctx = dash.callback_context
 
-    # If "Show All Indicators" is clicked
     if ctx.triggered and 'show-all-indicators' in ctx.triggered[0]['prop_id']:
         return sel_state, sel_county, sel_muni, None, {'display':'none'}, {'display':'none'}, {'display':'none'}, 'all_indicators'
 
-    # If "Back to Hierarchy" is clicked
     if ctx.triggered and 'back-to-hierarchy' in ctx.triggered[0]['prop_id']:
         return None, None, None, None, {'display':'none'}, {'display':'none'}, {'display':'none'}, 'hierarchy'
 
@@ -185,29 +201,29 @@ def navigate(
     if ctx.triggered and 'back-to-municipalities' in ctx.triggered[0]['prop_id']:
         return sel_state, sel_county, None, None, {'display': 'inline'}, {'display': 'inline'}, {'display': 'none'}, 'hierarchy'
 
-    # Check tile clicks
+    # Tile clicks
     # State-level tiles
-    if state_tile_clicks is not None and any(c > 0 for c in state_tile_clicks):
+    if state_tile_clicks and any(c > 0 for c in state_tile_clicks):
         idx = [i for i, val in enumerate(state_tile_clicks) if val and val > 0][0]
         state_val = state_rag.iloc[idx]['State']
         return state_val, None, None, None, {'display': 'inline'}, {'display': 'none'}, {'display': 'none'}, 'hierarchy'
 
     # County-level tiles
-    if county_tile_clicks is not None and any(c > 0 for c in county_tile_clicks):
+    if county_tile_clicks and any(c > 0 for c in county_tile_clicks):
         idx = [i for i, val in enumerate(county_tile_clicks) if val and val > 0][0]
         county_candidates = county_rag[county_rag['State'] == sel_state].reset_index(drop=True)
         county_val = county_candidates.iloc[idx]['County']
         return sel_state, county_val, None, None, {'display': 'inline'}, {'display': 'inline'}, {'display': 'none'}, 'hierarchy'
 
     # Municipality-level tiles
-    if muni_tile_clicks is not None and any(c > 0 for c in muni_tile_clicks):
+    if muni_tile_clicks and any(c > 0 for c in muni_tile_clicks):
         idx = [i for i, val in enumerate(muni_tile_clicks) if val and val > 0][0]
         muni_candidates = muni_rag[(muni_rag['State'] == sel_state) & (muni_rag['County'] == sel_county)].reset_index(drop=True)
         muni_val = muni_candidates.iloc[idx]['Municipality']
         return sel_state, sel_county, muni_val, None, {'display': 'inline'}, {'display': 'inline'}, {'display': 'inline'}, 'hierarchy'
 
     # District-level tiles
-    if district_tile_clicks is not None and any(c > 0 for c in district_tile_clicks):
+    if district_tile_clicks and any(c > 0 for c in district_tile_clicks):
         idx = [i for i, val in enumerate(district_tile_clicks) if val and val > 0][0]
         dist_candidates = district_rag[(district_rag['State'] == sel_state) &
                                        (district_rag['County'] == sel_county) &
@@ -230,7 +246,6 @@ def navigate(
 )
 def update_view(sel_state, sel_county, sel_muni, sel_district, view_mode, sort_toggle):
     if view_mode == 'all_indicators':
-        # Show all indicators in a paginated table with new Amber logic
         final_df = df.copy()
         final_df['ColorBG'] = final_df.apply(cell_color, axis=1)
         final_df['ColorCode'] = final_df['ColorBG'].apply(color_to_code)
@@ -255,8 +270,8 @@ def update_view(sel_state, sel_county, sel_muni, sel_district, view_mode, sort_t
         columns = [{'name': c, 'id': c} for c in final_df.columns if c not in ['ColorBG', 'ColorCode']]
         sort_by = []
         if sort_toggle:
-            # If we are sorting by color, sort descending by ColorCode
             sort_by = [{'column_id': 'ColorCode', 'direction': 'desc'}]
+
         table = dash_table.DataTable(
             columns=columns,
             data=final_df.to_dict('records'),
@@ -292,7 +307,7 @@ def update_view(sel_state, sel_county, sel_muni, sel_district, view_mode, sort_t
         tiles = create_tiles(plot_df, 'District')
         return tiles, None, {'display':'none'}
     else:
-        # Final level: Show table for that district with new Amber logic
+        # Final level table
         final_df = df[(df['State'] == sel_state) &
                       (df['County'] == sel_county) &
                       (df['Municipality'] == sel_muni) &
@@ -345,7 +360,6 @@ def toggle_sort_by_color(n_clicks, current):
     Input('selected-district', 'data')
 )
 def update_title(state, county, municipality, district):
-    # Build title based on current drill-down
     title = "Risk Dashboard"
     if state is not None:
         title += f": {state}"
@@ -358,4 +372,4 @@ def update_title(state, county, municipality, district):
     return title
 
 if __name__ == '__main__':
-    app.run_server(debug=False)
+    app.run_server(debug=True)
