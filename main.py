@@ -48,11 +48,11 @@ def rag_explanation(row):
     ratio = row['ratio']
     rag = row['RAG']
     if rag == 'Red':
-        reason = f"{at} out of {tot} ({ratio:.2f}) are above threshold, > 2/3"
+        reason = f"{at} out of {tot} Key Risk Indicators ({ratio:.2f}) are above threshold, > 2/3"
     elif rag == 'Amber':
-        reason = f"{at} out of {tot} ({ratio:.2f}) are above threshold, > 1/3 but ≤ 2/3"
+        reason = f"{at} out of {tot} Key Risk Indicators ({ratio:.2f}) are above threshold, > 1/3 but ≤ 2/3"
     else:
-        reason = f"{at} out of {tot} ({ratio:.2f}) are above threshold, ≤ 1/3"
+        reason = f"{at} out of {tot} Key Risk Indicators ({ratio:.2f}) are above threshold, ≤ 1/3"
     return f"RAG: {rag}. {reason}."
 
 def create_tiles(dataframe, level_col):
