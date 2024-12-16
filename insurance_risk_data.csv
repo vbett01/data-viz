@@ -1,0 +1,61 @@
+State,County,Municipality,District,Key Risk Indicator,Threshold,Risk Value
+California,Los Angeles,Village,South,Flood Risk,102.63,37.87
+California,Los Angeles,Borough,North,Crime Rate,92.39,144.82
+California,Los Angeles,Township,East,Hurricane Risk,145.46,165.97
+California,San Diego,Borough,North,Earthquake Risk,50.2,65.19
+California,San Diego,City,West,Earthquake Risk,67.96,115.96
+California,San Diego,Village,East,Crime Rate,74.42,197.39
+California,San Francisco,Village,West,Flood Risk,127.59,188.86
+California,San Francisco,Village,North,Crime Rate,97.06,112.27
+California,San Francisco,Township,East,Hurricane Risk,56.03,57.54
+California,Orange,Village,West,Crime Rate,85.17,70.07
+California,Orange,Borough,East,Fire Risk,125.79,108.44
+California,Orange,Township,East,Crime Rate,119.88,51.9
+Texas,Harris,City,South,Crime Rate,55.18,57.88
+Texas,Harris,Township,East,Hurricane Risk,77.44,113.93
+Texas,Harris,Borough,East,Flood Risk,117.82,73.47
+Texas,Dallas,Borough,North,Crime Rate,114.03,162.33
+Texas,Dallas,Borough,South,Hurricane Risk,126.69,50.87
+Texas,Dallas,Borough,West,Fire Risk,102.65,167.83
+Texas,Travis,Township,South,Hurricane Risk,93.49,119.07
+Texas,Travis,Borough,North,Earthquake Risk,104.6,116.75
+Texas,Travis,Village,North,Hurricane Risk,119.03,152.96
+Texas,Tarrant,Township,West,Fire Risk,105.92,83.94
+Texas,Tarrant,Borough,North,Earthquake Risk,91.28,83.99
+Texas,Tarrant,Borough,East,Hurricane Risk,107.24,194.85
+New York,Kings,Borough,East,Hurricane Risk,112.44,181.13
+New York,Kings,Township,East,Flood Risk,50.2,107.5
+New York,Kings,Village,East,Earthquake Risk,98.12,168.44
+New York,Queens,Village,South,Fire Risk,107.56,55.23
+New York,Queens,Township,South,Fire Risk,94.96,89.05
+New York,Queens,Township,West,Crime Rate,78.15,119.17
+New York,Albany,Village,North,Crime Rate,56.51,82.53
+New York,Albany,Borough,East,Earthquake Risk,131.34,123.57
+New York,Albany,Village,West,Flood Risk,148.71,187.71
+New York,Suffolk,Township,North,Fire Risk,140.69,196.14
+New York,Suffolk,Township,East,Fire Risk,134.51,58.41
+New York,Suffolk,Borough,East,Fire Risk,109.91,181.88
+Florida,Miami-Dade,City,West,Flood Risk,120.12,54.78
+Florida,Miami-Dade,Village,South,Fire Risk,92.93,96.59
+Florida,Miami-Dade,Borough,North,Flood Risk,140.27,75.34
+Florida,Broward,City,North,Earthquake Risk,60.59,133.77
+Florida,Broward,Township,West,Fire Risk,66.08,98.59
+Florida,Broward,Village,East,Flood Risk,92.0,87.61
+Florida,Palm Beach,Village,West,Fire Risk,114.43,94.87
+Florida,Palm Beach,City,East,Earthquake Risk,102.51,196.59
+Florida,Palm Beach,Borough,East,Hurricane Risk,52.99,166.69
+Florida,Orange,Village,North,Earthquake Risk,98.03,177.46
+Florida,Orange,Township,West,Earthquake Risk,111.64,156.07
+Florida,Orange,Township,North,Flood Risk,56.69,153.98
+Illinois,Cook,City,North,Flood Risk,132.74,150.22
+Illinois,Cook,Township,South,Flood Risk,134.24,40.31
+Illinois,Cook,Borough,West,Hurricane Risk,93.64,66.75
+Illinois,DuPage,Village,North,Hurricane Risk,98.98,72.33
+Illinois,DuPage,Borough,South,Earthquake Risk,111.44,45.81
+Illinois,DuPage,Village,North,Earthquake Risk,53.79,118.77
+Illinois,Lake,Village,North,Earthquake Risk,107.38,30.35
+Illinois,Lake,Township,North,Hurricane Risk,106.24,132.67
+Illinois,Lake,Village,East,Flood Risk,58.85,118.93
+Illinois,Will,City,East,Hurricane Risk,71.97,83.61
+Illinois,Will,Village,East,Flood Risk,127.75,93.58
+Illinois,Will,Village,South,Fire Risk,98.93,71.61
