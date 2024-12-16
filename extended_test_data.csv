@@ -5,7 +5,7 @@ California,Los Angeles,City,West,Earthquake Risk,83.59,69.04
 North Carolina,Forsyth,Borough,North,Earthquake Risk,141.14,133.25
 Michigan,Genesee,City,East,Earthquake Risk,75.02,116.47
 Pennsylvania,Berks,Borough,West,Flood Risk,65.39,166.22
-New Jersey,Passaic,Village,South,Fire Risk,116.95,44.08
+New Jersey,Passaic,Village,South,Fire Risk,116.95,144.08
 California,Orange,Borough,West,Crime Rate,132.36,39.34
 New York,Queens,City,West,Hurricane Risk,66.9,179.95
 Indiana,Marion,Borough,South,Hurricane Risk,127.37,125.27
@@ -19,15 +19,15 @@ California,San Diego,Village,North,Flood Risk,99.07,34.34
 Wisconsin,Kenosha,City,South,Fire Risk,87.66,183.07
 Wisconsin,Outagamie,Village,West,Fire Risk,129.79,46.07
 Arizona,Yuma,Borough,East,Fire Risk,71.39,158.33
-New Jersey,Bergen,Township,East,Earthquake Risk,67.28,53.74
+New Jersey,Bergen,Township,East,Earthquake Risk,67.28,153.74
 Michigan,Wayne,Borough,North,Flood Risk,106.99,81.95
 Illinois,Sangamon,City,North,Earthquake Risk,136.75,58.87
-Massachusetts,Hampden,Borough,East,Fire Risk,57.65,151.08
+Massachusetts,Hampden,Borough,East,Fire Risk,157.65,151.08
 Wisconsin,Outagamie,Township,West,Crime Rate,52.44,171.51
 Michigan,Saginaw,Village,East,Fire Risk,125.64,179.17
 Michigan,Saginaw,City,North,Crime Rate,53.76,165.63
 Georgia,Henry,Village,South,Hurricane Risk,143.18,65.98
-Massachusetts,Plymouth,Village,South,Fire Risk,76.64,183.04
+Massachusetts,Plymouth,Village,South,Fire Risk,176.64,183.04
 Tennessee,Sullivan,City,South,Earthquake Risk,131.39,53.87
 North Carolina,Mecklenburg,City,West,Flood Risk,101.06,178.91
 Massachusetts,Plymouth,Borough,East,Flood Risk,104.23,100.63
@@ -39,7 +39,7 @@ New York,Bronx,Village,West,Fire Risk,75.98,104.1
 Michigan,Kalamazoo,City,South,Flood Risk,117.21,38.33
 Missouri,Clay,City,East,Hurricane Risk,108.27,30.88
 California,Fresno,Township,West,Fire Risk,137.71,191.46
-New Jersey,Ocean,City,South,Fire Risk,82.16,63.28
+New Jersey,Ocean,City,South,Fire Risk,82.16,163.28
 Massachusetts,Plymouth,Borough,South,Fire Risk,144.42,71.65
 Illinois,Sangamon,Borough,North,Fire Risk,99.15,146.49
 Michigan,Macomb,City,West,Hurricane Risk,72.02,182.08
@@ -102,7 +102,7 @@ Georgia,Cherokee,Township,West,Flood Risk,148.12,147.27
 Missouri,Jackson,City,North,Crime Rate,97.25,55.48
 Michigan,Wayne,Village,East,Fire Risk,119.87,88.62
 Missouri,Jackson,Township,East,Fire Risk,135.56,89.06
-Massachusetts,Barnstable,Township,North,Hurricane Risk,76.39,156.34
+Massachusetts,Barnstable,Township,North,Hurricane Risk,176.39,156.34
 Massachusetts,Bristol,Township,West,Earthquake Risk,100.37,47.26
 New York,Onondaga,Borough,West,Earthquake Risk,102.83,47.17
 Missouri,Jefferson,Township,East,Earthquake Risk,114.01,115.0
@@ -130,7 +130,7 @@ Georgia,Henry,City,West,Fire Risk,137.34,75.29
 Arizona,Pinal,Township,East,Hurricane Risk,84.25,46.15
 Georgia,Gwinnett,Village,North,Flood Risk,88.98,151.62
 Virginia,Spotsylvania,Township,West,Fire Risk,69.19,39.37
-Massachusetts,Worcester,Village,West,Flood Risk,57.27,190.55
+Massachusetts,Worcester,Village,West,Flood Risk,257.27,190.55
 Virginia,Fairfax,Village,West,Fire Risk,102.71,171.37
 Massachusetts,Essex,Borough,East,Hurricane Risk,142.47,188.19
 California,San Mateo,Borough,South,Earthquake Risk,117.03,151.52
@@ -162,7 +162,7 @@ Wisconsin,Waukesha,Village,South,Crime Rate,56.55,48.95
 Illinois,Madison,Borough,North,Flood Risk,78.83,187.28
 Texas,Bexar,City,West,Flood Risk,138.07,131.3
 Virginia,Prince William,Township,North,Earthquake Risk,66.42,148.8
-Massachusetts,Bristol,City,South,Flood Risk,66.94,148.22
+Massachusetts,Bristol,City,South,Flood Risk,266.94,148.22
 Michigan,Oakland,Village,North,Hurricane Risk,135.74,131.22
 Texas,El Paso,Borough,West,Earthquake Risk,133.72,77.9
 Virginia,Fairfax,Township,East,Fire Risk,73.31,190.13
@@ -198,7 +198,7 @@ Pennsylvania,Lancaster,Village,West,Hurricane Risk,111.92,42.9
 Maryland,Prince George's,Village,South,Fire Risk,138.6,96.05
 Pennsylvania,Lancaster,Village,West,Hurricane Risk,84.78,105.97
 Illinois,DuPage,Township,East,Flood Risk,130.68,170.46
-New Jersey,Morris,City,West,Flood Risk,55.44,46.46
+New Jersey,Morris,City,West,Flood Risk,55.44,146.46
 California,Fresno,Village,North,Fire Risk,116.96,56.14
 Indiana,Vanderburgh,Township,North,Crime Rate,60.0,153.51
 Pennsylvania,Delaware,City,South,Earthquake Risk,145.42,150.75
@@ -207,7 +207,7 @@ Washington,Benton,Village,North,Fire Risk,82.52,79.61
 Michigan,Ingham,Borough,South,Flood Risk,138.89,65.61
 Georgia,Gwinnett,Village,East,Fire Risk,60.96,168.48
 Illinois,Sangamon,City,South,Hurricane Risk,142.49,109.9
-Massachusetts,Suffolk,Borough,North,Flood Risk,97.61,151.3
+Massachusetts,Suffolk,Borough,North,Flood Risk,197.61,151.3
 Illinois,Will,Township,West,Crime Rate,101.92,123.02
 New York,Westchester,Village,West,Crime Rate,83.41,81.5
 Georgia,Forsyth,Village,South,Flood Risk,146.91,195.46
@@ -237,7 +237,7 @@ Washington,Snohomish,Township,East,Hurricane Risk,107.16,106.13
 California,San Diego,Village,South,Hurricane Risk,149.01,167.64
 Florida,Duval,Borough,South,Flood Risk,136.22,160.75
 Pennsylvania,Montgomery,Village,North,Flood Risk,125.18,44.31
-New Jersey,Bergen,Borough,North,Hurricane Risk,126.04,47.84
+New Jersey,Bergen,Borough,North,Hurricane Risk,126.04,147.84
 Ohio,Montgomery,Township,South,Hurricane Risk,134.24,164.37
 Missouri,Cole,Township,South,Earthquake Risk,102.13,114.46
 Virginia,Stafford,Township,West,Fire Risk,124.28,36.32
@@ -294,7 +294,7 @@ Illinois,Lake,Borough,North,Fire Risk,102.25,35.05
 Missouri,St. Charles,Township,South,Hurricane Risk,95.44,170.87
 Illinois,DuPage,Borough,East,Earthquake Risk,86.14,55.67
 Tennessee,Blount,Township,East,Crime Rate,123.02,34.93
-New Jersey,Essex,Township,West,Crime Rate,109.2,54.0
+New Jersey,Essex,Township,West,Crime Rate,109.2,154
 Texas,Dallas,Township,East,Fire Risk,94.65,153.09
 North Carolina,New Hanover,Township,North,Earthquake Risk,147.71,185.98
 Michigan,Ingham,Village,North,Crime Rate,97.79,39.42
@@ -306,14 +306,14 @@ Illinois,Sangamon,Village,West,Earthquake Risk,135.48,55.51
 New Jersey,Bergen,City,East,Flood Risk,75.91,96.55
 Virginia,Prince William,Village,East,Flood Risk,54.12,38.49
 Ohio,Lorain,Village,West,Crime Rate,138.76,78.26
-Massachusetts,Worcester,Borough,North,Crime Rate,90.32,148.84
+Massachusetts,Worcester,Borough,North,Crime Rate,190.32,148.84
 Massachusetts,Hampden,Township,North,Flood Risk,64.53,33.79
 New York,Monroe,Township,West,Crime Rate,107.51,70.35
 Pennsylvania,Bucks,Village,North,Flood Risk,104.42,88.83
 Michigan,Saginaw,Township,North,Hurricane Risk,90.4,198.61
 Arizona,Mohave,Township,South,Earthquake Risk,121.0,187.22
 New York,Kings,Township,East,Flood Risk,96.05,46.52
-New Jersey,Bergen,Township,North,Crime Rate,128.48,52.59
+New Jersey,Bergen,Township,North,Crime Rate,128.48,152.59
 Wisconsin,Waukesha,Township,North,Fire Risk,85.14,162.37
 Georgia,Cobb,Village,North,Flood Risk,83.91,87.58
 Tennessee,Shelby,Township,West,Hurricane Risk,107.9,43.87
@@ -350,7 +350,7 @@ Washington,Spokane,Village,North,Crime Rate,109.63,103.64
 Indiana,Porter,Village,North,Crime Rate,124.2,31.15
 Virginia,Arlington,Borough,East,Hurricane Risk,53.67,167.93
 Georgia,Gwinnett,Township,East,Earthquake Risk,59.38,105.54
-New Jersey,Middlesex,City,North,Flood Risk,143.6,93.39
+New Jersey,Middlesex,City,North,Flood Risk,143.6,193.39
 Georgia,Henry,Borough,East,Hurricane Risk,89.24,62.27
 Georgia,Gwinnett,Township,West,Flood Risk,126.86,33.27
 Illinois,Madison,Township,North,Flood Risk,139.0,30.52
@@ -447,13 +447,13 @@ Maryland,Anne Arundel,Village,South,Crime Rate,108.09,153.82
 Ohio,Mahoning,Village,East,Fire Risk,113.28,103.35
 Tennessee,Davidson,Township,West,Fire Risk,100.91,161.53
 Georgia,Cobb,City,East,Flood Risk,72.04,114.13
-Massachusetts,Worcester,Village,West,Crime Rate,99.99,146.65
+Massachusetts,Worcester,Village,West,Crime Rate,199.99,146.65
 Missouri,Cole,Village,West,Fire Risk,65.61,89.12
 Indiana,Vanderburgh,Borough,South,Hurricane Risk,79.75,125.98
 Texas,Travis,Township,North,Flood Risk,119.7,130.75
 Tennessee,Knox,Borough,South,Earthquake Risk,89.61,165.48
 North Carolina,Cumberland,City,South,Crime Rate,96.54,167.94
-New Jersey,Essex,Borough,North,Earthquake Risk,133.32,69.12
+New Jersey,Essex,Borough,North,Earthquake Risk,133.32,169.12
 Pennsylvania,Bucks,Borough,North,Flood Risk,98.95,99.48
 Wisconsin,Outagamie,City,South,Hurricane Risk,115.11,162.11
 Virginia,Henrico,Village,South,Crime Rate,118.07,196.89
@@ -484,7 +484,7 @@ Wisconsin,Outagamie,Township,East,Crime Rate,74.92,189.76
 Missouri,Jackson,Borough,West,Hurricane Risk,135.94,104.0
 Texas,Fort Bend,Village,North,Flood Risk,115.24,174.38
 Wisconsin,Racine,Borough,West,Hurricane Risk,122.08,177.52
-New Jersey,Middlesex,City,South,Flood Risk,77.35,32.35
+New Jersey,Middlesex,City,South,Flood Risk,77.35,132.35
 Georgia,Fulton,Township,East,Hurricane Risk,91.46,194.86
 Virginia,Fairfax,Borough,North,Earthquake Risk,131.6,169.28
 Arizona,Pima,Borough,South,Fire Risk,69.15,130.7
@@ -492,7 +492,7 @@ Texas,Dallas,Village,North,Hurricane Risk,97.34,67.28
 Georgia,DeKalb,Village,West,Crime Rate,149.06,135.62
 Texas,El Paso,Village,West,Flood Risk,144.42,101.09
 Wisconsin,Waukesha,City,West,Hurricane Risk,117.52,52.63
-New Jersey,Bergen,Village,South,Flood Risk,102.18,34.55
+New Jersey,Bergen,Village,South,Flood Risk,102.18,134.55
 New York,Erie,Borough,North,Flood Risk,117.62,198.27
 Ohio,Butler,Township,South,Hurricane Risk,83.52,87.04
 Missouri,Boone,Township,West,Flood Risk,118.67,125.73
@@ -535,7 +535,7 @@ New Jersey,Monmouth,City,South,Fire Risk,90.67,149.13
 New Jersey,Middlesex,Township,West,Earthquake Risk,103.1,192.1
 Indiana,Hendricks,Village,North,Earthquake Risk,117.95,188.58
 Texas,Harris,Village,South,Earthquake Risk,120.83,169.77
-New Jersey,Middlesex,Borough,East,Fire Risk,68.9,39.12
+New Jersey,Middlesex,Borough,East,Fire Risk,68.9,139.12
 Florida,Broward,Borough,West,Hurricane Risk,53.19,180.66
 Pennsylvania,Chester,City,West,Earthquake Risk,107.06,67.63
 New York,Queens,City,East,Flood Risk,71.57,198.11
@@ -549,7 +549,7 @@ Washington,Yakima,Village,West,Earthquake Risk,100.28,159.26
 Washington,Clark,City,North,Crime Rate,69.32,161.1
 Texas,Bexar,Borough,South,Flood Risk,51.94,171.59
 California,Los Angeles,Village,North,Fire Risk,67.55,126.61
-Massachusetts,Barnstable,City,South,Hurricane Risk,95.36,163.5
+Massachusetts,Barnstable,City,South,Hurricane Risk,195.36,163.5
 Pennsylvania,Berks,Borough,East,Earthquake Risk,80.07,89.75
 Georgia,Cobb,Township,South,Hurricane Risk,142.36,161.49
 Michigan,Macomb,Village,South,Earthquake Risk,125.26,158.75
@@ -564,7 +564,7 @@ Massachusetts,Worcester,City,South,Earthquake Risk,134.21,78.0
 Washington,Spokane,Borough,North,Earthquake Risk,148.99,131.02
 Missouri,Cole,City,West,Crime Rate,127.07,53.35
 Washington,Clark,Borough,East,Flood Risk,50.82,198.67
-Massachusetts,Essex,Village,North,Fire Risk,69.43,167.94
+Massachusetts,Essex,Village,North,Fire Risk,169.43,167.94
 Tennessee,Blount,Township,East,Crime Rate,104.33,56.44
 New York,Suffolk,Borough,East,Hurricane Risk,123.52,138.81
 Massachusetts,Barnstable,Borough,South,Fire Risk,143.68,106.92
@@ -615,7 +615,7 @@ Pennsylvania,Lehigh,Village,East,Earthquake Risk,135.86,84.39
 Virginia,Hampton,City,North,Fire Risk,142.28,195.67
 Washington,Thurston,City,West,Hurricane Risk,130.55,41.71
 Ohio,Hamilton,Village,South,Fire Risk,68.44,195.13
-Massachusetts,Plymouth,Borough,South,Earthquake Risk,57.8,192.76
+Massachusetts,Plymouth,Borough,South,Earthquake Risk,257.8,192.76
 Maryland,Washington,Borough,East,Earthquake Risk,136.84,158.06
 New Jersey,Middlesex,Township,South,Crime Rate,143.57,111.56
 Indiana,Hamilton,Township,South,Flood Risk,95.04,157.2
@@ -687,7 +687,7 @@ Indiana,Tippecanoe,Village,North,Earthquake Risk,124.9,173.78
 Texas,Dallas,Borough,West,Flood Risk,125.18,90.0
 Pennsylvania,Allegheny,Borough,West,Crime Rate,52.03,188.49
 Washington,Benton,Village,West,Crime Rate,66.03,152.39
-New Jersey,Monmouth,Village,West,Flood Risk,96.04,33.6
+New Jersey,Monmouth,Village,West,Flood Risk,96.04,133.6
 Indiana,Tippecanoe,Township,East,Crime Rate,121.08,36.68
 Illinois,Madison,City,North,Hurricane Risk,110.73,196.5
 New Jersey,Camden,Township,North,Fire Risk,101.07,171.57
@@ -695,7 +695,7 @@ Massachusetts,Norfolk,Village,North,Earthquake Risk,91.16,87.52
 Illinois,Lake,Borough,North,Flood Risk,97.25,191.99
 Wisconsin,Rock,Township,East,Earthquake Risk,124.19,124.42
 Illinois,Lake,City,North,Flood Risk,62.37,176.95
-Massachusetts,Hampshire,City,West,Fire Risk,58.04,181.14
+Massachusetts,Hampshire,City,West,Fire Risk,258.04,181.14
 Maryland,Prince George's,Borough,West,Hurricane Risk,142.5,182.72
 Indiana,Porter,Township,West,Earthquake Risk,114.31,157.39
 New York,Erie,Village,South,Crime Rate,102.57,158.33
@@ -738,7 +738,7 @@ Virginia,Spotsylvania,City,North,Fire Risk,69.08,154.64
 Illinois,Winnebago,Borough,South,Crime Rate,112.25,148.64
 Maryland,Prince George's,City,South,Flood Risk,101.13,103.92
 Missouri,Clay,Village,East,Earthquake Risk,100.97,180.87
-Massachusetts,Suffolk,Village,South,Fire Risk,98.66,143.74
+Massachusetts,Suffolk,Village,South,Fire Risk,298.66,143.74
 Texas,Travis,City,West,Earthquake Risk,101.58,61.27
 Arizona,Mohave,City,North,Earthquake Risk,108.31,195.67
 Florida,Hillsborough,City,East,Earthquake Risk,126.34,146.62
@@ -749,12 +749,12 @@ Massachusetts,Suffolk,Village,North,Crime Rate,101.98,104.48
 New York,Monroe,Borough,North,Fire Risk,134.05,36.37
 Massachusetts,Worcester,Township,South,Fire Risk,96.07,57.53
 Arizona,Apache,Township,South,Hurricane Risk,52.36,58.3
-New Jersey,Essex,Borough,East,Flood Risk,62.94,57.85
+New Jersey,Essex,Borough,East,Flood Risk,62.94,157.85
 Virginia,Hampton,Village,West,Fire Risk,80.19,133.27
 Ohio,Lorain,City,West,Earthquake Risk,124.42,94.1
 Ohio,Hamilton,Township,North,Fire Risk,65.99,191.32
 Wisconsin,Outagamie,City,North,Fire Risk,108.89,73.74
-Massachusetts,Hampshire,Township,South,Hurricane Risk,65.45,71.88
+Massachusetts,Hampshire,Township,South,Hurricane Risk,165.45,71.88
 Massachusetts,Worcester,Borough,East,Flood Risk,80.17,104.93
 Florida,Broward,Village,East,Flood Risk,107.01,113.86
 Massachusetts,Plymouth,Village,West,Earthquake Risk,144.08,65.74
@@ -783,10 +783,10 @@ Washington,Snohomish,Township,West,Crime Rate,70.77,173.21
 New Jersey,Essex,Township,North,Crime Rate,117.69,192.76
 Michigan,Washtenaw,Village,South,Flood Risk,99.09,168.21
 Tennessee,Davidson,Village,South,Flood Risk,148.57,162.81
-New Jersey,Camden,City,North,Crime Rate,69.56,50.12
+New Jersey,Camden,City,North,Crime Rate,69.56,150.12
 Michigan,Kent,Borough,North,Hurricane Risk,123.47,189.91
 Arizona,Coconino,City,South,Hurricane Risk,90.23,162.32
-Massachusetts,Essex,City,South,Flood Risk,79.29,195.98
+Massachusetts,Essex,City,South,Flood Risk,279.29,195.98
 Indiana,Porter,Village,West,Fire Risk,69.5,128.88
 Michigan,Ottawa,Borough,South,Crime Rate,71.35,66.32
 Ohio,Franklin,City,West,Crime Rate,61.53,114.31
@@ -801,9 +801,9 @@ Pennsylvania,Delaware,Village,North,Flood Risk,78.23,173.25
 Michigan,Kent,City,East,Earthquake Risk,145.1,68.84
 Ohio,Cuyahoga,City,East,Fire Risk,118.27,100.9
 Arizona,Coconino,Borough,North,Earthquake Risk,88.47,165.99
-New Jersey,Ocean,Township,South,Fire Risk,107.38,42.93
+New Jersey,Ocean,Township,South,Fire Risk,107.38,142.93
 Tennessee,Sumner,Village,East,Earthquake Risk,99.52,64.3
-Massachusetts,Middlesex,Township,East,Hurricane Risk,87.99,130.99
+Massachusetts,Middlesex,Township,East,Hurricane Risk,187.99,130.99
 New York,Westchester,Borough,West,Hurricane Risk,70.61,157.15
 Florida,Duval,Village,East,Hurricane Risk,84.08,41.76
 North Carolina,Gaston,Township,North,Hurricane Risk,73.25,141.24
@@ -819,7 +819,7 @@ Virginia,Chesterfield,Village,East,Fire Risk,94.3,32.77
 Pennsylvania,Delaware,Village,North,Earthquake Risk,82.68,174.15
 New York,Suffolk,Borough,East,Crime Rate,125.84,187.11
 Illinois,Madison,City,East,Crime Rate,59.97,42.04
-Massachusetts,Middlesex,City,West,Flood Risk,66.4,150.44
+Massachusetts,Middlesex,City,West,Flood Risk,166.4,150.44
 Maryland,Howard,City,West,Flood Risk,58.72,174.08
 Missouri,Greene,Borough,North,Flood Risk,88.79,80.09
 New York,Albany,Borough,South,Crime Rate,117.49,92.29
@@ -926,11 +926,11 @@ Pennsylvania,Lehigh,Borough,West,Fire Risk,122.82,153.27
 Florida,Leon,City,West,Earthquake Risk,82.93,171.11
 Pennsylvania,Berks,Village,West,Earthquake Risk,66.69,138.61
 Tennessee,Sumner,Village,South,Hurricane Risk,66.84,188.08
-Massachusetts,Bristol,Borough,East,Earthquake Risk,95.21,103.4
+Massachusetts,Bristol,Borough,East,Earthquake Risk,195.21,103.4
 New York,Westchester,Township,East,Fire Risk,99.65,193.9
 Arizona,Apache,Borough,North,Fire Risk,83.83,184.15
 New York,Bronx,Village,West,Fire Risk,85.52,128.73
-New Jersey,Monmouth,Township,West,Flood Risk,126.91,45.62
+New Jersey,Monmouth,Township,West,Flood Risk,126.91,145.62
 Georgia,Fulton,Borough,South,Crime Rate,131.83,143.47
 New York,Monroe,Township,North,Flood Risk,142.35,80.79
 Pennsylvania,Berks,Village,North,Earthquake Risk,98.64,122.69
@@ -958,7 +958,7 @@ Indiana,Tippecanoe,Township,North,Fire Risk,98.73,135.4
 Wisconsin,Milwaukee,Township,South,Crime Rate,94.29,161.89
 Illinois,Winnebago,Township,South,Crime Rate,90.93,36.83
 Texas,Montgomery,Township,East,Hurricane Risk,115.55,166.77
-Massachusetts,Hampshire,City,West,Earthquake Risk,52.67,60.79
+Massachusetts,Hampshire,City,West,Earthquake Risk,152.67,60.79
 Maryland,Howard,Township,West,Earthquake Risk,123.48,102.83
 California,Kern,Township,North,Hurricane Risk,63.68,106.3
 Indiana,Hendricks,Borough,West,Fire Risk,74.35,63.57
@@ -997,7 +997,7 @@ Illinois,Sangamon,City,North,Flood Risk,105.67,57.08
 Massachusetts,Hampshire,Township,South,Flood Risk,133.84,117.29
 Illinois,Will,Township,East,Flood Risk,107.31,156.24
 Georgia,Henry,Borough,East,Flood Risk,50.1,37.72
-Massachusetts,Hampden,Borough,East,Hurricane Risk,89.75,162.98
+Massachusetts,Hampden,Borough,East,Hurricane Risk,189.75,162.98
 California,Orange,Village,East,Hurricane Risk,80.15,143.64
 Washington,Thurston,Township,North,Earthquake Risk,86.14,112.27
 Illinois,Madison,Township,South,Earthquake Risk,114.52,165.53
@@ -1108,7 +1108,7 @@ Virginia,Hampton,Borough,North,Earthquake Risk,94.38,184.44
 California,Los Angeles,Village,West,Crime Rate,62.32,132.26
 Virginia,Hampton,Borough,East,Crime Rate,76.78,119.59
 Georgia,Gwinnett,Village,East,Earthquake Risk,149.66,145.69
-New Jersey,Ocean,Village,East,Earthquake Risk,73.17,30.98
+New Jersey,Ocean,Village,East,Earthquake Risk,73.17,130.98
 Indiana,Tippecanoe,City,East,Hurricane Risk,146.9,74.37
 New York,Bronx,Township,North,Crime Rate,56.09,33.11
 California,Sacramento,Borough,West,Earthquake Risk,142.23,87.97
@@ -1135,7 +1135,7 @@ Tennessee,Sumner,Village,West,Flood Risk,110.0,59.9
 Texas,Travis,Village,North,Flood Risk,92.03,59.71
 Pennsylvania,Lehigh,City,South,Earthquake Risk,105.54,116.7
 Georgia,Cobb,Village,East,Crime Rate,84.63,185.88
-New Jersey,Ocean,Borough,North,Crime Rate,102.87,77.56
+New Jersey,Ocean,Borough,North,Crime Rate,102.87,177.56
 Indiana,St. Joseph,Borough,North,Earthquake Risk,61.21,101.53
 Massachusetts,Barnstable,City,West,Hurricane Risk,106.11,147.4
 Pennsylvania,Chester,City,West,Fire Risk,137.15,118.09
@@ -1161,14 +1161,14 @@ Washington,Yakima,Borough,West,Crime Rate,129.89,73.38
 Missouri,Cole,Borough,South,Crime Rate,87.32,54.16
 Texas,Collin,Borough,West,Earthquake Risk,78.0,56.34
 Ohio,Butler,Village,East,Hurricane Risk,117.07,86.1
-Massachusetts,Barnstable,City,North,Fire Risk,100.08,103.68
+Massachusetts,Barnstable,City,North,Fire Risk,1100.08,103.68
 Wisconsin,Waukesha,City,North,Earthquake Risk,72.52,32.35
 Massachusetts,Worcester,Township,South,Crime Rate,115.95,138.97
 Georgia,Fulton,Borough,East,Earthquake Risk,103.58,84.81
 Virginia,Fairfax,City,North,Hurricane Risk,60.59,83.78
 Pennsylvania,Lehigh,Village,South,Earthquake Risk,51.94,54.47
 Ohio,Summit,Borough,South,Hurricane Risk,116.12,106.59
-Massachusetts,Barnstable,Borough,East,Flood Risk,83.36,121.53
+Massachusetts,Barnstable,Borough,East,Flood Risk,183.36,121.53
 Illinois,Madison,City,South,Fire Risk,71.37,36.84
 Pennsylvania,Lehigh,Village,North,Crime Rate,108.02,106.11
 Georgia,Fulton,City,South,Flood Risk,134.76,154.34
@@ -1247,7 +1247,7 @@ Indiana,Tippecanoe,Township,North,Earthquake Risk,72.09,80.51
 Michigan,Washtenaw,Village,West,Earthquake Risk,86.37,66.59
 Virginia,Hampton,Township,North,Hurricane Risk,116.92,122.79
 New Jersey,Essex,City,West,Flood Risk,58.16,166.63
-New Jersey,Ocean,Township,East,Hurricane Risk,127.53,52.17
+New Jersey,Ocean,Township,East,Hurricane Risk,127.53,152.17
 Georgia,Forsyth,Village,North,Crime Rate,87.41,109.79
 Missouri,Boone,Township,North,Crime Rate,113.14,193.67
 Florida,Broward,Village,South,Earthquake Risk,71.51,47.48
@@ -1259,14 +1259,14 @@ Illinois,Kane,Village,East,Earthquake Risk,85.92,149.16
 Virginia,Loudoun,Borough,North,Earthquake Risk,67.34,97.93
 Ohio,Butler,Township,West,Crime Rate,94.18,142.4
 Massachusetts,Hampshire,Borough,North,Flood Risk,132.87,112.74
-Massachusetts,Barnstable,Village,South,Earthquake Risk,121.66,171.95
+Massachusetts,Barnstable,Village,South,Earthquake Risk,1121.66,171.95
 California,Los Angeles,City,East,Hurricane Risk,64.46,109.14
 Tennessee,Rutherford,Borough,South,Hurricane Risk,127.01,141.26
 Ohio,Cuyahoga,Township,South,Flood Risk,112.52,114.81
 Missouri,Greene,Township,East,Hurricane Risk,91.07,110.63
-New Jersey,Union,Village,West,Fire Risk,77.31,50.02
+New Jersey,Union,Village,West,Fire Risk,77.31,150.02
 Ohio,Hamilton,Village,West,Flood Risk,146.21,166.36
-Massachusetts,Hampshire,City,South,Hurricane Risk,118.22,151.4
+Massachusetts,Hampshire,City,South,Hurricane Risk,1118.22,151.4
 Florida,Palm Beach,Township,South,Fire Risk,82.67,155.8
 North Carolina,Cumberland,Township,East,Earthquake Risk,104.3,195.28
 Ohio,Butler,Township,South,Fire Risk,104.24,181.62
@@ -1318,7 +1318,7 @@ Arizona,Yavapai,City,South,Crime Rate,121.73,110.74
 North Carolina,Wake,City,West,Earthquake Risk,61.21,186.48
 Wisconsin,Outagamie,Township,West,Crime Rate,121.26,125.58
 Florida,Pinellas,Township,South,Earthquake Risk,109.98,37.03
-Massachusetts,Hampshire,City,West,Hurricane Risk,85.42,132.76
+Massachusetts,Hampshire,City,West,Hurricane Risk,185.42,132.76
 Wisconsin,Kenosha,Village,South,Fire Risk,98.33,185.37
 Washington,Snohomish,Borough,South,Fire Risk,102.21,93.39
 North Carolina,Durham,Village,South,Crime Rate,101.28,153.78
@@ -1335,7 +1335,7 @@ Ohio,Stark,Township,North,Fire Risk,107.81,184.32
 Maryland,Washington,City,East,Flood Risk,61.95,89.64
 California,San Francisco,City,West,Flood Risk,75.84,140.92
 Texas,Montgomery,City,East,Flood Risk,138.33,107.38
-New Jersey,Camden,Township,West,Flood Risk,112.87,58.1
+New Jersey,Camden,Township,West,Flood Risk,112.87,158.1
 Virginia,Loudoun,City,South,Earthquake Risk,61.58,39.12
 North Carolina,Durham,Village,South,Flood Risk,127.82,126.72
 New Jersey,Union,City,East,Crime Rate,149.36,190.01
@@ -1388,7 +1388,7 @@ Pennsylvania,Berks,Borough,East,Fire Risk,118.45,194.69
 Wisconsin,Outagamie,Village,East,Fire Risk,71.37,63.93
 Georgia,Cobb,Township,South,Hurricane Risk,146.49,81.13
 New York,Kings,City,North,Flood Risk,135.84,132.41
-Massachusetts,Hampshire,Village,East,Crime Rate,54.38,166.32
+Massachusetts,Hampshire,Village,East,Crime Rate,254.38,166.32
 Massachusetts,Bristol,Township,East,Hurricane Risk,119.85,178.69
 Ohio,Hamilton,Township,East,Hurricane Risk,50.64,171.9
 California,Los Angeles,City,South,Earthquake Risk,83.69,144.39
@@ -1400,7 +1400,7 @@ Missouri,Franklin,City,South,Crime Rate,137.02,97.97
 Pennsylvania,Chester,Borough,East,Fire Risk,120.66,143.05
 Tennessee,Sullivan,Village,East,Flood Risk,89.97,44.85
 Arizona,Coconino,Township,West,Fire Risk,117.48,47.03
-Massachusetts,Suffolk,Borough,North,Crime Rate,84.01,94.96
+Massachusetts,Suffolk,Borough,North,Crime Rate,184.01,94.96
 Missouri,St. Louis,City,North,Flood Risk,68.36,78.95
 Illinois,Madison,City,East,Earthquake Risk,95.35,42.86
 Washington,Clark,City,West,Hurricane Risk,77.95,53.42
@@ -1442,7 +1442,7 @@ Pennsylvania,Montgomery,City,North,Crime Rate,105.58,125.36
 Missouri,Boone,Village,East,Earthquake Risk,71.57,64.98
 Indiana,Marion,Borough,East,Fire Risk,113.14,48.09
 Indiana,Allen,City,West,Hurricane Risk,147.53,100.44
-Massachusetts,Worcester,Township,West,Crime Rate,83.68,134.7
+Massachusetts,Worcester,Township,West,Crime Rate,183.68,134.7
 Indiana,Marion,Township,South,Hurricane Risk,95.31,108.94
 Maryland,Prince George's,Borough,South,Fire Risk,54.79,47.42
 Washington,King,Borough,South,Earthquake Risk,103.16,83.44
@@ -1455,7 +1455,7 @@ Maryland,Prince George's,Borough,East,Earthquake Risk,128.63,150.3
 Massachusetts,Barnstable,City,North,Fire Risk,146.54,166.37
 Pennsylvania,York,Borough,West,Flood Risk,123.65,142.01
 New York,Albany,Borough,West,Crime Rate,116.7,73.4
-Massachusetts,Barnstable,City,West,Crime Rate,58.1,106.68
+Massachusetts,Barnstable,City,West,Crime Rate,158.1,106.68
 Virginia,Spotsylvania,Borough,South,Fire Risk,112.35,166.21
 Wisconsin,Racine,Borough,East,Hurricane Risk,127.2,189.48
 California,Ventura,Township,East,Crime Rate,138.63,115.72
@@ -1476,13 +1476,13 @@ Ohio,Butler,Village,South,Hurricane Risk,135.28,172.21
 Massachusetts,Norfolk,City,West,Fire Risk,52.77,37.85
 Illinois,Winnebago,Borough,East,Hurricane Risk,118.07,180.29
 New Jersey,Essex,Borough,South,Flood Risk,112.38,146.13
-New Jersey,Morris,Village,West,Crime Rate,114.33,65.83
+New Jersey,Morris,Village,West,Crime Rate,114.33,165.83
 Arizona,Maricopa,Township,South,Fire Risk,121.63,169.27
-Massachusetts,Essex,Township,East,Hurricane Risk,68.57,153.76
+Massachusetts,Essex,Township,East,Hurricane Risk,168.57,153.76
 Maryland,Washington,Borough,East,Earthquake Risk,145.77,91.2
 Maryland,Carroll,City,West,Crime Rate,117.52,192.08
 Georgia,Chatham,Borough,East,Hurricane Risk,71.37,166.94
-Massachusetts,Plymouth,Borough,East,Hurricane Risk,74.84,98.34
+Massachusetts,Plymouth,Borough,East,Hurricane Risk,174.84,98.34
 Maryland,Charles,Township,East,Fire Risk,146.33,183.45
 Illinois,Peoria,Borough,East,Flood Risk,86.42,73.97
 North Carolina,Union,Township,South,Flood Risk,147.1,173.3
@@ -1513,7 +1513,7 @@ Tennessee,Montgomery,Village,West,Crime Rate,121.81,71.84
 North Carolina,Cumberland,Village,West,Crime Rate,147.03,144.65
 Georgia,Cobb,Borough,North,Fire Risk,54.79,162.85
 California,San Francisco,Borough,South,Flood Risk,63.03,37.28
-Massachusetts,Middlesex,City,North,Crime Rate,56.75,184.83
+Massachusetts,Middlesex,City,North,Crime Rate,256.75,184.83
 Tennessee,Williamson,Township,South,Earthquake Risk,52.76,138.94
 Virginia,Arlington,Borough,South,Fire Risk,79.69,43.73
 New York,Erie,Village,East,Flood Risk,89.87,118.12
@@ -1528,7 +1528,7 @@ Virginia,Prince William,Village,North,Fire Risk,58.91,87.68
 Wisconsin,Kenosha,Village,East,Crime Rate,83.28,89.73
 Tennessee,Sumner,City,West,Flood Risk,118.23,183.68
 Texas,Fort Bend,Village,East,Crime Rate,116.23,56.69
-Massachusetts,Bristol,City,East,Earthquake Risk,85.69,154.7
+Massachusetts,Bristol,City,East,Earthquake Risk,185.69,154.7
 New York,Queens,Township,South,Fire Risk,59.27,134.4
 Indiana,Vanderburgh,Township,East,Fire Risk,52.24,166.44
 Indiana,Tippecanoe,Township,North,Earthquake Risk,82.41,116.68
@@ -1610,7 +1610,7 @@ Illinois,Peoria,Borough,West,Crime Rate,52.33,35.49
 New York,Queens,Borough,West,Flood Risk,67.35,69.97
 Maryland,Anne Arundel,Village,North,Flood Risk,100.89,179.27
 Florida,Pinellas,Township,East,Crime Rate,125.39,172.89
-New Jersey,Ocean,Borough,East,Fire Risk,68.96,47.85
+New Jersey,Ocean,Borough,East,Fire Risk,68.96,147.85
 Florida,Hillsborough,Township,West,Earthquake Risk,50.72,78.47
 North Carolina,Guilford,Township,North,Crime Rate,82.83,126.17
 Texas,Tarrant,Borough,North,Earthquake Risk,55.82,93.73
@@ -1731,12 +1731,12 @@ Texas,Harris,Village,South,Flood Risk,88.6,60.56
 Ohio,Stark,Township,East,Crime Rate,70.35,169.56
 Massachusetts,Barnstable,Township,North,Earthquake Risk,69.59,37.86
 Washington,Snohomish,Township,West,Hurricane Risk,138.19,191.02
-New Jersey,Middlesex,Borough,West,Earthquake Risk,137.06,59.11
+New Jersey,Middlesex,Borough,West,Earthquake Risk,137.06,159.11
 Missouri,Boone,Village,West,Fire Risk,149.71,146.93
 Georgia,DeKalb,City,West,Earthquake Risk,104.11,159.92
 Virginia,Albemarle,Village,South,Crime Rate,134.18,165.68
 Illinois,Lake,Township,East,Flood Risk,124.59,142.3
-New Jersey,Bergen,Village,East,Flood Risk,83.04,38.99
+New Jersey,Bergen,Village,East,Flood Risk,83.04,138.99
 Indiana,Elkhart,Township,South,Flood Risk,131.86,39.19
 Indiana,Vanderburgh,City,West,Earthquake Risk,97.81,63.9
 Missouri,Jackson,Borough,North,Earthquake Risk,115.77,188.11
@@ -1757,7 +1757,7 @@ New York,Kings,Village,West,Earthquake Risk,119.48,114.45
 Michigan,Kent,Borough,South,Fire Risk,92.86,92.52
 Georgia,DeKalb,Village,East,Fire Risk,125.47,145.51
 Missouri,Jackson,City,West,Hurricane Risk,50.67,122.34
-Massachusetts,Hampshire,Village,West,Fire Risk,64.82,192.08
+Massachusetts,Hampshire,Village,West,Fire Risk,264.82,192.08
 Tennessee,Rutherford,Village,West,Earthquake Risk,143.65,95.74
 Georgia,Hall,Borough,South,Earthquake Risk,133.09,125.37
 Georgia,DeKalb,Township,South,Hurricane Risk,102.45,89.93
@@ -1780,7 +1780,7 @@ Washington,Spokane,Borough,West,Flood Risk,56.67,186.01
 Georgia,Cherokee,City,East,Hurricane Risk,139.58,142.75
 Tennessee,Sullivan,Borough,North,Crime Rate,119.71,186.49
 Virginia,Henrico,City,North,Crime Rate,102.03,199.84
-New Jersey,Camden,City,East,Earthquake Risk,91.66,58.12
+New Jersey,Camden,City,East,Earthquake Risk,91.66,158.12
 Wisconsin,Brown,Village,South,Hurricane Risk,130.94,174.77
 Arizona,Maricopa,Borough,East,Flood Risk,64.52,67.05
 Pennsylvania,Philadelphia,City,West,Flood Risk,79.23,52.96
@@ -1795,14 +1795,14 @@ Indiana,Lake,Village,South,Earthquake Risk,125.14,185.92
 Missouri,St. Charles,Village,South,Flood Risk,112.29,161.37
 New York,Queens,Township,West,Hurricane Risk,114.28,157.45
 Maryland,Howard,Village,West,Earthquake Risk,130.71,110.45
-New Jersey,Bergen,Borough,North,Earthquake Risk,108.29,57.76
+New Jersey,Bergen,Borough,North,Earthquake Risk,108.29,157.76
 Florida,Sarasota,City,North,Fire Risk,113.04,37.33
 Washington,King,Borough,East,Earthquake Risk,94.54,135.76
 Tennessee,Sumner,Township,South,Flood Risk,140.75,176.06
 Michigan,Kent,Village,South,Earthquake Risk,72.26,64.32
 New York,Nassau,Borough,South,Hurricane Risk,75.22,79.62
 Missouri,Jackson,Township,West,Flood Risk,135.97,146.27
-New Jersey,Monmouth,Village,South,Earthquake Risk,111.29,45.29
+New Jersey,Monmouth,Village,South,Earthquake Risk,111.29,145.29
 New Jersey,Essex,Village,East,Earthquake Risk,118.68,175.77
 Illinois,Kane,Township,West,Hurricane Risk,139.23,118.37
 Michigan,Washtenaw,Township,East,Fire Risk,114.36,75.13
@@ -1824,7 +1824,7 @@ Ohio,Cuyahoga,Village,West,Flood Risk,84.27,191.82
 Massachusetts,Bristol,Borough,South,Hurricane Risk,146.69,42.44
 Pennsylvania,Delaware,Borough,South,Hurricane Risk,98.83,197.68
 Arizona,Pinal,Township,West,Crime Rate,68.5,150.5
-New Jersey,Essex,City,South,Crime Rate,70.09,36.73
+New Jersey,Essex,City,South,Crime Rate,70.09,136.73
 Virginia,Hampton,Borough,East,Flood Risk,56.91,185.94
 Illinois,Cook,Borough,East,Earthquake Risk,86.9,149.19
 Massachusetts,Barnstable,Borough,West,Earthquake Risk,101.7,56.87
@@ -1855,7 +1855,7 @@ New York,Suffolk,City,South,Crime Rate,147.46,98.21
 Washington,Snohomish,Township,West,Fire Risk,124.92,173.52
 Massachusetts,Hampshire,Village,East,Crime Rate,127.36,113.59
 Texas,El Paso,Borough,East,Hurricane Risk,140.62,141.49
-Massachusetts,Bristol,Township,South,Flood Risk,51.95,158.15
+Massachusetts,Bristol,Township,South,Flood Risk,251.95,158.15
 Illinois,Will,Borough,North,Flood Risk,114.66,114.12
 Maryland,Howard,Township,North,Hurricane Risk,127.07,85.23
 New York,Queens,Village,North,Crime Rate,130.22,39.6
@@ -1865,13 +1865,13 @@ North Carolina,Mecklenburg,Borough,West,Fire Risk,90.62,138.09
 Illinois,Cook,Borough,East,Crime Rate,133.07,191.23
 Pennsylvania,Berks,Village,South,Hurricane Risk,146.43,187.49
 Florida,Leon,Borough,East,Flood Risk,74.74,169.31
-New Jersey,Morris,City,North,Flood Risk,98.37,68.28
+New Jersey,Morris,City,North,Flood Risk,98.37,168.28
 New York,Queens,City,North,Crime Rate,71.41,85.5
 California,San Diego,Borough,East,Flood Risk,100.99,126.21
 Arizona,Navajo,Village,South,Crime Rate,52.6,157.61
 California,Fresno,Township,North,Flood Risk,94.56,57.07
 Wisconsin,Dane,Village,North,Flood Risk,108.79,104.71
-Massachusetts,Hampshire,City,South,Fire Risk,143.92,169.29
+Massachusetts,Hampshire,City,South,Fire Risk,1143.92,169.29
 New York,Kings,Borough,East,Earthquake Risk,79.5,108.89
 Tennessee,Rutherford,Village,North,Fire Risk,93.56,129.38
 Illinois,DuPage,Township,West,Fire Risk,125.16,117.99
@@ -1909,7 +1909,7 @@ Texas,Fort Bend,Village,North,Crime Rate,132.04,149.33
 Pennsylvania,Chester,Borough,South,Flood Risk,131.86,173.92
 Michigan,Genesee,Borough,North,Hurricane Risk,121.4,184.84
 Indiana,Tippecanoe,Township,East,Fire Risk,132.27,109.9
-Massachusetts,Suffolk,Village,East,Flood Risk,57.83,88.84
+Massachusetts,Suffolk,Village,East,Flood Risk,157.83,88.84
 Arizona,Cochise,Township,East,Fire Risk,129.98,42.1
 Illinois,Lake,Village,West,Earthquake Risk,142.62,120.59
 Florida,Miami-Dade,Village,East,Earthquake Risk,142.5,86.59
@@ -1997,5 +1997,5 @@ California,Los Angeles,Township,West,Flood Risk,96.05,127.92
 Missouri,Franklin,Township,South,Earthquake Risk,129.42,189.09
 Wisconsin,Winnebago,Township,North,Hurricane Risk,99.78,163.43
 Virginia,Hampton,City,East,Hurricane Risk,91.6,89.77
-Massachusetts,Worcester,City,South,Crime Rate,51.17,151.59
+Massachusetts,Worcester,City,South,Crime Rate,251.17,151.59
 Illinois,Cook,Township,North,Flood Risk,82.82,142.69

@@ -100,7 +100,6 @@ def cell_color(row):
 
 def color_to_code(color):
     # Red = 2, Amber = 1, Green = 0
-    # So sorting descending puts Red first, then Amber, then Green
     if color == 'red':
         return 2
     elif color == 'orange':
@@ -112,13 +111,13 @@ app = dash.Dash(__name__)
 app.title = "Risk Dashboard"
 
 app.layout = html.Div([
-    html.H1("Risk Dashboard"),
+    html.H1("Risk Dashboard", id='page-title'),
     dcc.Store(id='selected-state'),
     dcc.Store(id='selected-county'),
     dcc.Store(id='selected-municipality'),
     dcc.Store(id='selected-district'),
     dcc.Store(id='view-mode', data='hierarchy'),  # 'hierarchy' or 'all_indicators'
-    dcc.Store(id='sort-by-color-toggle', data=False),  # Track whether we are sorting by color
+    dcc.Store(id='sort-by-color-toggle', data=False),  # Track sorting by color
 
     html.Div([
         html.Button("Back to States", id='back-to-states', n_clicks=0, style={'display': 'none'}),
@@ -233,7 +232,6 @@ def update_view(sel_state, sel_county, sel_muni, sel_district, view_mode, sort_t
     if view_mode == 'all_indicators':
         # Show all indicators in a paginated table with new Amber logic
         final_df = df.copy()
-        # Compute color codes for sorting
         final_df['ColorBG'] = final_df.apply(cell_color, axis=1)
         final_df['ColorCode'] = final_df['ColorBG'].apply(color_to_code)
 
@@ -335,10 +333,29 @@ def update_view(sel_state, sel_county, sel_muni, sel_district, view_mode, sort_t
     State('sort-by-color-toggle', 'data')
 )
 def toggle_sort_by_color(n_clicks, current):
-    # Every time the button is clicked, toggle the boolean
     if n_clicks:
         return not current
     return current
+
+@app.callback(
+    Output('page-title', 'children'),
+    Input('selected-state', 'data'),
+    Input('selected-county', 'data'),
+    Input('selected-municipality', 'data'),
+    Input('selected-district', 'data')
+)
+def update_title(state, county, municipality, district):
+    # Build title based on current drill-down
+    title = "Risk Dashboard"
+    if state is not None:
+        title += f": {state}"
+    if county is not None:
+        title += f" > {county}"
+    if municipality is not None:
+        title += f" > {municipality}"
+    if district is not None:
+        title += f" > {district}"
+    return title
 
 if __name__ == '__main__':
     app.run_server(debug=True)
