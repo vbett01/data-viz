@@ -333,6 +333,57 @@ def navigate(
         'display': 'none'}, view_mode
 
 
+def make_underlying_data_table(final_df, sel_state, sel_county, sel_muni, sel_district):
+    # Filter data according to current level
+    filtered = final_df.copy()
+    if sel_state:
+        filtered = filtered[filtered['State'] == sel_state]
+    if sel_county:
+        filtered = filtered[filtered['County'] == sel_county]
+    if sel_muni:
+        filtered = filtered[filtered['Municipality'] == sel_muni]
+    if sel_district:
+        filtered = filtered[filtered['District'] == sel_district]
+
+    # Color code
+    filtered['ColorBG'] = filtered.apply(cell_color, axis=1)
+    filtered['ColorCode'] = filtered['ColorBG'].apply(color_to_code)
+
+    style_data_conditional = []
+    for i, row in filtered.iterrows():
+        bg_color = row['ColorBG']
+        style_data_conditional.append({
+            'if': {
+                'filter_query': (
+                    f'{{Key Risk Indicator}} = "{row["Key Risk Indicator"]}" && '
+                    f'{{State}} = "{row["State"]}" && '
+                    f'{{County}} = "{row["County"]}" && '
+                    f'{{Municipality}} = "{row["Municipality"]}" && '
+                    f'{{District}} = "{row["District"]}"'
+                )
+            },
+            'backgroundColor': bg_color,
+            'color': 'white'
+        })
+
+    columns = [{'name': c, 'id': c} for c in filtered.columns if c not in ['ColorBG', 'ColorCode']]
+
+    table = dash_table.DataTable(
+        columns=columns,
+        data=filtered.to_dict('records'),
+        style_data_conditional=style_data_conditional,
+        page_size=20,
+        sort_action='native',
+        hidden_columns=['ColorBG', 'ColorCode']
+    )
+
+    details = html.Details([
+        html.Summary("View Underlying Data"),
+        table
+    ], style={'marginTop': '20px'})  # Add some spacing above the toggle
+    return details
+
+
 @app.callback(
     Output('content-container', 'children'),
     Output('final-table-container', 'children'),
@@ -350,8 +401,14 @@ def update_view(sel_state, sel_county, sel_muni, sel_district, view_mode, sort_t
         # Show onboarding form only
         return [], None, {'display': 'none'}, {'display': 'block'}
 
+    final_df = pd.read_csv('extended_test_data.csv')  # ensure fresh data
+    global state_rag, county_rag, muni_rag, district_rag
+    state_rag = get_aggregated_rag(final_df, ['State'])
+    county_rag = get_aggregated_rag(final_df, ['State', 'County'])
+    muni_rag = get_aggregated_rag(final_df, ['State', 'County', 'Municipality'])
+    district_rag = get_aggregated_rag(final_df, ['State', 'County', 'Municipality', 'District'])
+
     if view_mode == 'all_indicators':
-        final_df = pd.read_csv('extended_test_data.csv')  # re-read after any updates
         final_df['ColorBG'] = final_df.apply(cell_color, axis=1)
         final_df['ColorCode'] = final_df['ColorBG'].apply(color_to_code)
 
@@ -373,81 +430,51 @@ def update_view(sel_state, sel_county, sel_muni, sel_district, view_mode, sort_t
             })
 
         columns = [{'name': c, 'id': c} for c in final_df.columns if c not in ['ColorBG', 'ColorCode']]
-        sort_by = []
-        if sort_toggle:
-            sort_by = [{'column_id': 'ColorCode', 'direction': 'desc'}]
-
         table = dash_table.DataTable(
             columns=columns,
             data=final_df.to_dict('records'),
             style_data_conditional=style_data_conditional,
             page_size=20,
             sort_action='native',
-            sort_by=sort_by,
             hidden_columns=['ColorBG', 'ColorCode']
         )
         return [], table, {'display': 'inline'}, {'display': 'none'}
 
     # Hierarchy view
-    final_df = pd.read_csv('extended_test_data.csv')  # ensure fresh data
-    global state_rag, county_rag, muni_rag, district_rag
-    state_rag = get_aggregated_rag(final_df, ['State'])
-    county_rag = get_aggregated_rag(final_df, ['State', 'County'])
-    muni_rag = get_aggregated_rag(final_df, ['State', 'County', 'Municipality'])
-    district_rag = get_aggregated_rag(final_df, ['State', 'County', 'Municipality', 'District'])
-
+    # At State level: just tiles
     if sel_state is None:
         plot_df = state_rag.copy()
         tiles = create_tiles(plot_df, 'State')
         return tiles, None, {'display': 'none'}, {'display': 'none'}
-    elif sel_state is not None and sel_county is None:
+
+    # Create underlying data toggle
+    underlying_data = make_underlying_data_table(final_df, sel_state, sel_county, sel_muni, sel_district)
+
+    if sel_state is not None and sel_county is None:
         plot_df = county_rag[county_rag['State'] == sel_state].copy()
         tiles = create_tiles(plot_df, 'County')
-        return tiles, None, {'display': 'none'}, {'display': 'none'}
-    elif sel_state is not None and sel_county is not None and sel_muni is None:
+        # At county level, show tiles and below them the data toggle
+        layout = [*tiles, underlying_data]
+        return layout, None, {'display': 'none'}, {'display': 'none'}
+
+    if sel_state is not None and sel_county is not None and sel_muni is None:
         plot_df = muni_rag[(muni_rag['State'] == sel_state) & (muni_rag['County'] == sel_county)].copy()
         tiles = create_tiles(plot_df, 'Municipality')
-        return tiles, None, {'display': 'none'}, {'display': 'none'}
-    elif sel_state is not None and sel_county is not None and sel_muni is not None and sel_district is None:
+        layout = [*tiles, underlying_data]
+        return layout, None, {'display': 'none'}, {'display': 'none'}
+
+    if sel_state is not None and sel_county is not None and sel_muni is not None and sel_district is None:
         plot_df = district_rag[(district_rag['State'] == sel_state) &
                                (district_rag['County'] == sel_county) &
                                (district_rag['Municipality'] == sel_muni)].copy()
         tiles = create_tiles(plot_df, 'District')
-        return tiles, None, {'display': 'none'}, {'display': 'none'}
-    else:
-        filtered = final_df[(final_df['State'] == sel_state) &
-                            (final_df['County'] == sel_county) &
-                            (final_df['Municipality'] == sel_muni) &
-                            (final_df['District'] == sel_district)].copy()
-        filtered['ColorBG'] = filtered.apply(cell_color, axis=1)
-        filtered['ColorCode'] = filtered['ColorBG'].apply(color_to_code)
+        layout = [*tiles, underlying_data]
+        return layout, None, {'display': 'none'}, {'display': 'none'}
 
-        style_data_conditional = []
-        for i, row in filtered.iterrows():
-            bg_color = row['ColorBG']
-            style_data_conditional.append({
-                'if': {
-                    'filter_query': f'{{Key Risk Indicator}} = "{row["Key Risk Indicator"]}"'
-                },
-                'backgroundColor': bg_color,
-                'color': 'white'
-            })
-
-        columns = [{'name': c, 'id': c} for c in filtered.columns if c not in ['ColorBG', 'ColorCode']]
-        sort_by = []
-        if sort_toggle:
-            sort_by = [{'column_id': 'ColorCode', 'direction': 'desc'}]
-
-        table = dash_table.DataTable(
-            columns=columns,
-            data=filtered.to_dict('records'),
-            style_data_conditional=style_data_conditional,
-            page_size=20,
-            sort_action='native',
-            sort_by=sort_by,
-            hidden_columns=['ColorBG', 'ColorCode']
-        )
-        return [], table, {'display': 'none'}, {'display': 'none'}
+    # If a district is selected (lowest level)
+    # At lowest level, no further tiles, just show underlying_data
+    layout = [underlying_data]  # no tiles here
+    return layout, None, {'display': 'none'}, {'display': 'none'}
 
 
 @app.callback(
